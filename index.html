@@ -1,45 +1,38 @@
-// Status pemain
-let player1 = { name: "Player 1", health: 100, attack: 15, specialUsed: false, healUsed: false };
-let player2 = { name: "Player 2", health: 100, attack: 15, specialUsed: false, healUsed: false };
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battle Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-let currentTurn = 1; // 1 = Player 1, 2 = Player 2
+<h1>⚔️ Battle Game 2 Player ⚔️</h1>
 
-function updateStats() {
-    document.getElementById('player1-health').textContent = player1.health;
-    document.getElementById('player2-health').textContent = player2.health;
-}
+<div class="container">
 
-function addToLog(message) {
-    const log = document.getElementById('battle-log');
-    log.innerHTML += `<p>${message}</p>`;
-    log.scrollTop = log.scrollHeight;
-}
+<div class="player">
+    <h2>Player 1</h2>
+    <p>Health: <span id="player1-health">100</span></p>
+</div>
 
-// Serangan
-function attack() {
-    if (currentTurn === 1) {
-        const damage = Math.floor(Math.random() * 10) + player1.attack;
-        player2.health -= damage;
-        addToLog(`⚔️ Player 1 menyerang - Player 2 kehilangan ${damage} darah!`);
-        currentTurn = 2;
-    } else {
-        const damage = Math.floor(Math.random() * 10) + player2.attack;
-        player1.health -= damage;
-        addToLog(`⚔️ Player 2 menyerang - Player 1 kehilangan ${damage} darah!`);
-        currentTurn = 1;
-    }
-    updateStats();
-    checkBattleEnd();
-}
+<div class="player">
+    <h2>Player 2</h2>
+    <p>Health: <span id="player2-health">100</span></p>
+</div>
 
-// Heal
-function heal() {
-    let healAmount = Math.floor(Math.random() * 15) + 20;
-    if (currentTurn === 1 && !player1.healUsed) {
-        player1.health = Math.min(player1.health + healAmount, 100);
-        player1.healUsed = true;
-        addToLog(`❤️ Player 1 menyembuhkan diri +${healAmount} darah!`);
-        currentTurn = 2;
-    } else if (currentTurn === 2 && !player2.healUsed) {
-        player2.health = Math.min(player2.health + healAmount, 100);
-        player
+</div>
+
+<div class="buttons">
+    <button onclick="attack()">Attack</button>
+    <button onclick="heal()">Heal</button>
+    <button onclick="specialAttack()">Special</button>
+    <button onclick="resetGame()">Reset</button>
+</div>
+
+<div id="battle-log" class="log"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
